@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Product, ImageProduct, CategoryProduct, ProductGender,\
+from website.models import Product, ImageProduct, CategoryProduct, ProductGender,\
     ImageBanner, ImageCategoryBanner, FAQ, Contact
 
 admin.site.register(Product)

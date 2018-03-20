@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <title>{% block page_title %}{% endblock %}{% block page_title_suffix %} :: Noir Style{% endblock %}</title>
+
+        <!-- CSS Plugins -->
+        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+        <link href="{% static "css/style.css" %}" rel="stylesheet">
+        <link href="{% static "css/style-responsive.css" %}" rel="stylesheet">
+        <link href="{% static "css/animate.min.css" %}" rel="stylesheet">
+        <link href="{% static "css/vertical-rhythm.min.css" %}" rel="stylesheet">
+        <link href="{% static "css/owl.carousel.css" %}" rel="stylesheet">
+        <link href="{% static "css/magnific-popup.css" %}" rel="stylesheet">
+
+        {% block extra_head %}{% endblock %}
+    </head>
+
+    <body class="appear-animate">
+        <!-- PRELOADER -->
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
+        </div>
+        <!-- /PRELOADER -->
+
+        <div class="page" id="top">
+            {% block site_header %}
+                {% include "layout/header.html" %}
+            {% endblock site_header %}
+
+            {% block site_content %}
+            {% endblock site_content %}
+
+            {% block site_footer %}
+                {% include "layout/footer.html" %}
+            {% endblock site_footer %}
+        </div>
+
+        <!-- JS -->
+        <script src="{% static "js/jquery-1.11.2.min.js" %}"></script>
+        <script src="{% static "js/jquery.easing.1.3.js" %}"></script>
+        <script src="{% static "js/bootstrap.min.js" %}"></script>        
+        <script src="{% static "js/SmoothScroll.js" %}"></script>
+        <script src="{% static "js/jquery.scrollTo.min.js" %}"></script>
+        <script src="{% static "js/jquery.localScroll.min.js" %}"></script>
+        <script src="{% static "js/jquery.viewport.mini.js" %}"></script>
+        <script src="{% static "js/jquery.countTo.js" %}"></script>
+        <script src="{% static "js/jquery.appear.js" %}"></script>
+        <script src="{% static "js/jquery.sticky.js" %}"></script>
+        <script src="{% static "js/jquery.parallax-1.1.3.js" %}"></script>
+        <script src="{% static "js/jquery.fitvids.js" %}"></script>
+        <script src="{% static "js/owl.carousel.min.js" %}"></script>
+        <script src="{% static "js/isotope.pkgd.min.js" %}"></script>
+        <script src="{% static "js/imagesloaded.pkgd.min.js" %}"></script>
+        <script src="{% static "js/jquery.magnific-popup.min.js" %}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
+        <script src="{% static "js/gmap3.min.js" %}"></script>
+        <script src="{% static "js/wow.min.js" %}"></script>
+        <script src="{% static "js/masonry.pkgd.min.js" %}"></script>
+        <script src="{% static "js/jquery.simple-text-rotator.min.js" %}"></script>
+        <script src="{% static "js/all.js" %}"></script>
+        <script src="{% static "js/contact-form.js" %}"></script>
+        <script src="{% static "js/jquery.ajaxchimp.min.js" %}"></script>
+
+        {% block extra_bottom %}{% endblock %}
+    </body>
+</html>

@@ -4,8 +4,11 @@
 
 {% block site_content %}
 
+    {% if banners %}
+
+        {% for banner in banners %}
             <!-- Home Section -->
-            <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
+            <section class="home-section bg-dark-alfa-30 parallax-2" data-background="{{ banner.image.url }}" id="home">
                 <div class="js-height-full">
                     
                     <!-- Hero Content -->
@@ -13,11 +16,11 @@
                         <div class="home-text">
                             
                             <h1 class="hs-line-1 font-alt mb-80 mb-xs-30 mt-50 mt-sm-0">
-                                Thomas Rhythm
+                                {{ banner.title }}
                             </h1>
                             
                             <div class="hs-line-6">
-                                Extraordinary art studio &&nbsp;creative minimalism lovers
+                                {{ banner.text }}
                             </div>
                             
                         </div>
@@ -33,6 +36,10 @@
                 </div>
             </section>
             <!-- End Home Section -->
+        {% endfor %}
+
+    {% endif %}
+
 
 
             <!-- About Section -->

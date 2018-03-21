@@ -18,6 +18,9 @@ class Product(models.Model):
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0,
                                                 verbose_name=u'posición')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = u'producto'
         verbose_name_plural = u'productos'
@@ -45,6 +48,9 @@ class CategoryProduct(models.Model):
     """
 
     name = models.CharField(u'nombre', max_length=255)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = u'categoría del producto'
@@ -89,12 +95,16 @@ class ImageBanner(models.Model):
     name = models.CharField(u'nombre de la imágen', max_length=255, unique=True)
     title = models.CharField(u'titulo del banner', max_length=255, blank=True)
     text = models.TextField(u'texto del banner', blank=True)
+    image = models.ImageField(u'imagen del banner', upload_to='uploads/banner_image')
     category = models.ForeignKey('ImageCategoryBanner', blank=True)
-    product_gender = models.CharField(u'tamaño de la imágen', max_length=1,
-                                      choices=SIZE_CHOICE, default=MEDIUM)
+    image_size = models.CharField(u'tamaño de la imágen', max_length=1,
+                                  choices=SIZE_CHOICE, default=MEDIUM)
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0)
     published = models.BooleanField(default=True, verbose_name=u'publicado')
     link = models.CharField(u'link', max_length=200, blank=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = u'imágen banner'
@@ -107,6 +117,9 @@ class ImageCategoryBanner(models.Model):
     """
 
     place = models.CharField(u'lugar', max_length=255, unique=True)
+
+    def __str__(self):
+        return self.place
 
     class Meta:
         verbose_name = u'lugar del banner'
@@ -123,6 +136,9 @@ class FAQ(models.Model):
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0,
                                                 verbose_name=u'posición')
 
+    def __str__(self):
+        return self.ask
+
     class Meta:
         verbose_name = u'pregunta frecuente'
         verbose_name_plural = u'preguntas frecuentes'
@@ -136,6 +152,9 @@ class Contact(models.Model):
     mail = models.EmailField(u'email')
     cell_phone = models.PositiveIntegerField(u'nro de celular', blank=True)
     message = models.TextField(u'mensaje')
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = u'contacto'

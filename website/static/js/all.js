@@ -103,8 +103,12 @@
     var pageSection = $(".home-section, .page-section, .small-section, .split-section");
     pageSection.each(function(indx){
         
-        if ($(this).attr("data-background")){
-            $(this).css("background-image", "url(" + $(this).data("background") + ")");
+        if ((width < 768) && ($(this).attr('data-background-s'))) {
+            $(this).css('background-image', 'url(' + $(this).attr('data-background-s') + ')');
+        } else if ((width > 767) && (width < 992) && ($(this).attr('data-background-m'))) {
+            $(this).css('background-image', 'url(' + $(this).attr('data-background-m') + ')');
+        } else if ($(this).attr('data-background')) {
+            $(this).css('background-image', 'url(' + $(this).attr('data-background') + ')');
         }
     });
     

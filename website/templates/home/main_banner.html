@@ -1,0 +1,42 @@
+
+<div class="home-section fullwidth-slider bg-dark" id="home">
+
+{% if main_banners %}
+
+    {% for main_banner in main_banners %}
+
+        <section class="home-section bg-scroll bg-dark-alfa-30" data-background="{{ main_banner.M.image.url }}">
+            <div class="js-height-full container">
+
+                <div class="home-content">
+                    <div class="home-text">
+
+                        <h1 class="hs-line-5 font-alt mb-80 mb-xs-30 mt-50 mt-sm-0">
+                            {{ main_banner.M.title }}
+                        </h1>
+                    
+                    {% if main_banner.link %}
+                        <h2 class="hs-line-10">
+                            <a href="{{ main_banner.M.link }}" style="text-decoration:none">{{ main_banner.M.text }}</a>
+                        </h2>
+                    {% else %}
+                        <h2 class="hs-line-4">
+                            {{ main_banner.M.text }}
+                        </h2>
+                    {% endif %}
+
+                        <div class="local-scroll">
+                            <a href="#about" class="scroll-down"><i class="fa fa-angle-down scroll-down-icon"></i></a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+    {% endfor %}
+
+{% endif %}
+
+</div>

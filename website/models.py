@@ -92,11 +92,11 @@ class ImageBanner(models.Model):
                    (MEDIUM, 'Mediano'),
                    (BIG, 'Grande'))
 
-    name = models.CharField(u'nombre de la imágen', max_length=255, unique=True)
+    name = models.CharField(u'nombre de la imágen', max_length=255)
     title = models.CharField(u'titulo del banner', max_length=255, blank=True)
     text = models.TextField(u'texto del banner', blank=True)
     image = models.ImageField(u'imagen del banner', upload_to='uploads/banner_image')
-    category = models.ForeignKey('ImageCategoryBanner', blank=True)
+    category = models.ForeignKey('ImageCategoryBanner', blank=True, verbose_name=u'lugar')
     image_size = models.CharField(u'tamaño de la imágen', max_length=1,
                                   choices=SIZE_CHOICE, default=MEDIUM)
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0)

@@ -7,5 +7,4 @@ urlpatterns = [
     # Pagina inicial
     url(r'^$', HomeView.as_view(),
         name='home'),
-
 ]

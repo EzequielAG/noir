@@ -7,6 +7,12 @@ from django.db import models
 class Product(models.Model):
     """Producto
     """
+    MUJER = 'M'
+    HOMBRE = 'H'
+    UNISEX = 'U'
+    SEX_CHOICE = ((MUJER, 'Mujer'),
+                  (HOMBRE, 'Hombre'),
+                  (UNISEX, 'Unisex'))
 
     code = models.CharField(u'código', max_length=255, unique=True, null=True, blank=True)
     name = models.CharField(u'nombre', max_length=255)
@@ -17,6 +23,8 @@ class Product(models.Model):
     price = models.DecimalField(u'precio', max_digits=10, decimal_places=2, default=Decimal('0.00'))
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0,
                                                 verbose_name=u'posición')
+    product_gender = models.CharField(u'género del producto', max_length=1,
+                                      choices=SEX_CHOICE, default=UNISEX)
 
     def __str__(self):
         return self.name
@@ -47,7 +55,7 @@ class CategoryProduct(models.Model):
     """Categoría del Producto
     """
 
-    name = models.CharField(u'nombre', max_length=255)
+    name = models.CharField(u'nombre', max_length=255, unique=True)
 
     def __str__(self):
         return self.name
@@ -55,28 +63,6 @@ class CategoryProduct(models.Model):
     class Meta:
         verbose_name = u'categoría del producto'
         verbose_name_plural = u'categorías de los productos'
-        app_label = 'website'
-
-
-class ProductGender(models.Model):
-    """Sexo a quien esta recomendado el producto
-    """
-    MUJER = 'M'
-    HOMBRE = 'H'
-    UNISEX = 'U'
-    SEX_CHOICE = ((MUJER, 'Mujer'),
-                  (HOMBRE, 'Hombre'),
-                  (UNISEX, 'Unisex'))
-    product_gender = models.CharField(u'género del producto', max_length=1,
-                                      choices=SEX_CHOICE, default=UNISEX)
-    product = models.OneToOneField('Product', verbose_name='producto')
-
-    def __str__(self):
-        return self.product_gender
-
-    class Meta:
-        verbose_name = u'género del producto'
-        verbose_name_plural = u'géneros de los productos'
         app_label = 'website'
 
 
@@ -152,6 +138,8 @@ class Contact(models.Model):
     mail = models.EmailField(u'email')
     cell_phone = models.PositiveIntegerField(u'nro de celular', blank=True, null=True)
     message = models.TextField(u'mensaje')
+    submited_on = models.DateTimeField(u'fecha y hora', auto_now=True)
+    read = models.BooleanField(u'leido')
 
     def __str__(self):
         return self.name

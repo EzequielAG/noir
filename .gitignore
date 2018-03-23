@@ -103,3 +103,4 @@ ENV/
 #custom
 media/
 *.sqlite3
+emails/

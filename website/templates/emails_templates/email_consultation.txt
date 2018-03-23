@@ -1,0 +1,17 @@
+Recibiste una consulta desde el sitio web de Noir Style enviada por {{ consultation.name }}
+
+Fecha y hora: {{ consultation.submited_on }}
+
+Nombre: {{ consultation.name }}
+
+Teléfono: {{ consultation.cell_phone }}
+
+Email: {{ consultation.mail }}
+
+Mensaje:
+
+{{ consultation.message }}
+
+-----------------------------------------------------------------
+
+Puede contestar la consulta directamente respondiendo este email.

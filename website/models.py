@@ -150,7 +150,7 @@ class Contact(models.Model):
     """
     name = models.CharField(u'nombre', max_length=255)
     mail = models.EmailField(u'email')
-    cell_phone = models.PositiveIntegerField(u'nro de celular', blank=True)
+    cell_phone = models.PositiveIntegerField(u'nro de celular', blank=True, null=True)
     message = models.TextField(u'mensaje')
 
     def __str__(self):

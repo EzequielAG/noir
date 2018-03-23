@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <!-- Contact Section -->
 <section class="page-section" id="contact">
     <div class="container relative">
@@ -64,69 +65,54 @@
             
         </div>
         
-        <!-- Contact Form -->
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                
-                <form class="form contact-form" id="contact_form">
+                <form method="post" action="{% url 'home' %}"> {% csrf_token %}
+
                     <div class="clearfix">
                         
                         <div class="cf-left-col">
                             
                             <!-- Name -->
                             <div class="form-group">
-                                <input type="text" name="name" id="name" class="input-md round form-control" placeholder="Name" pattern=".{3,100}" required>
+                                {% render_field form.name class+="input-md round form-control" placeholder=form.name.label %}
                             </div>
-                            
-                            <!-- Email -->
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="input-md round form-control" placeholder="Email" pattern=".{5,100}" required>
+                                {% render_field form.mail class+="input-md round form-control" placeholder=form.mail.label %}
                             </div>
-                            
+                            <div class="form-group">
+                                {% render_field form.cell_phone class+="input-md round form-control" placeholder=form.cell_phone.label %}
+                            </div>
+
                         </div>
-                        
+
                         <div class="cf-right-col">
                             
                             <!-- Message -->
                             <div class="form-group">
-                                <textarea name="message" id="message" class="input-md round form-control" style="height: 84px;" placeholder="Message"></textarea>
+                                {% render_field form.message class+="input-md round form-control" placeholder=form.message.label style="height: 132px;" %}
                             </div>
                             
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="clearfix">
-                        
-                        <div class="cf-left-col">
-                            
-                            <!-- Inform Tip -->
-                            <div class="form-tip pt-20">
-                                <i class="fa fa-info-circle"></i> All the fields are required
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="cf-right-col">
-                            
-                            <!-- Send Button -->
-                            <div class="align-right pt-10">
-                                <button class="submit_btn btn btn-mod btn-medium btn-round" id="submit_btn">Submit Message</button>
-                            </div>
-                            
-                        </div>
-                        
+                        {% if form.errors %}<div class="error">{{ form.errors }}</div>{% endif %}
                     </div>
-                    
-                    
-                    
-                    <div id="result"></div>
+
+                    <div class="clearfix">
+                                                    
+                        <!-- Send Button -->
+                        <div class="align-right pt-10">
+                            <button type="submit" class="submit_btn btn btn-mod btn-medium btn-round">Enviar Mensaje</button>
+                        </div>
+                            
+                    </div>
                 </form>
-                
             </div>
         </div>
-        <!-- End Contact Form -->
-        
+
     </div>
 </section>
 <!-- End Contact Section -->

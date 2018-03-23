@@ -102,7 +102,7 @@
     
     var pageSection = $(".home-section, .page-section, .small-section, .split-section");
     pageSection.each(function(indx){
-        
+        var width = screen.width;
         if ((width < 768) && ($(this).attr('data-background-s'))) {
             $(this).css('background-image', 'url(' + $(this).attr('data-background-s') + ')');
         } else if ((width > 767) && (width < 992) && ($(this).attr('data-background-m'))) {

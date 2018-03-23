@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.views.generic.edit import FormView
+from django.template.loader import render_to_string
+from django.views.generic.edit import CreateView
+from django.core.mail.message import EmailMessage
 
-from website.models import ImageBanner, ImageCategoryBanner
+from website.models import ImageBanner, ImageCategoryBanner, Contact
 from website.forms import ContactForm
 
 
@@ -50,12 +52,13 @@ class BannerMixin(object):
         return banners
 
 
-class HomeView(BannerMixin, FormView):
+class HomeView(BannerMixin, CreateView):
     """Pagina de Inicio
     """
 
     template_name = 'home/home.html'
     form_class = ContactForm
+    model = Contact
     success_url = '/'
 
     def get_context_data(self, **kwargs):
@@ -66,3 +69,15 @@ class HomeView(BannerMixin, FormView):
         context['gender_banners'] = self.get_banners(category=category, name='gender')
 
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        subject = u"[Noir Style] Consulta realizada "\
+                  u"por %(nombre)s" % {'nombre': self.object.name}
+        message = render_to_string('emails_templates/email_consultation.txt',
+                                   {'consultation': self.object})
+        email = EmailMessage(subject, message, 'consultation@noirstyle.com',
+                             ['eze94ale@gmail.com'], reply_to=[self.object.mail])
+        email.send()
+        # messages.info(self.request, 'La consulta fue enviada con éxito')
+        return super(HomeView, self).form_valid(form)

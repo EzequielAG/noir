@@ -6,7 +6,7 @@ $(document).ready(function(){
         
         //get input field values
         var user_name = $('input[name=name]').val();
-        var user_email = $('input[name=email]').val();
+        var user_email = $('input[name=mail]').val();
         var user_message = $('textarea[name=message]').val();
         
         //simple validation at client's end
@@ -17,7 +17,7 @@ $(document).ready(function(){
             proceed = false;
         }
         if (user_email == "") {
-            $('input[name=email]').css('border-color', '#e41919');
+            $('input[name=mail]').css('border-color', '#e41919');
             proceed = false;
         }
         

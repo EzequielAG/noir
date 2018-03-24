@@ -1,0 +1,78 @@
+<div class="col-sm-8">
+    
+    <!-- Shop options -->
+    <div class="clearfix mb-40">
+        
+        <div class="left section-text mt-10">
+            Showing 1–12 of 23 results
+        </div>
+        
+        <div class="right">
+            <form method="post" action="#" class="form">
+                <select class="input-md round">
+                    <option>Default sorting</option>
+                    <option>Sort by price: low to high</option>
+                    <option>Sort by price: high to low</option>
+                </select>
+            </form>
+        </div>
+        
+    </div>
+    <!-- End Shop options -->
+    
+    <div class="row multi-columns-row">
+
+        {% if products %}
+
+            {% for product in products %}
+
+            <div class="col-md-4 col-lg-4 mb-60 mb-xs-40">
+                
+                <div class="post-prev-img">
+                    
+                    <a href="shop-single.html"><img src="{{ product.home_image_single.image.url }}" alt="" /></a>
+                    
+                    <div class="intro-label">
+                        <span class="label label-danger bg-red">Sale</span>
+                    </div>
+                    
+                </div>
+                
+                <div class="post-prev-title font-alt align-center">
+                    <a href="#">{{ product.name }}</a>
+                </div>
+
+                <div class="post-prev-text align-center">
+                    <del>$150.00</del>
+                    &nbsp;
+                    <strong>{{ product.price }}</strong>
+                </div>
+                
+                <div class="post-prev-more align-center">
+                    <a href="#" class="btn btn-mod btn-gray btn-round"><i class="fa fa-shopping-cart"></i> Mas detalle </a>
+                </div>
+                
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        {% endif %}
+
+        
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination">
+        <a href=""><i class="fa fa-angle-left"></i></a>
+        <a href="" class="active">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+        <a class="no-active">...</a>
+        <a href="">9</a>
+        <a href=""><i class="fa fa-angle-right"></i></a>
+    </div>
+    <!-- End Pagination -->
+    
+</div>

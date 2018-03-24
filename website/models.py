@@ -25,6 +25,23 @@ class Product(models.Model):
                                                 verbose_name=u'posición')
     product_gender = models.CharField(u'género del producto', max_length=1,
                                       choices=SEX_CHOICE, default=UNISEX)
+    date = models.DateTimeField(u'fecha y hora', auto_now=True)
+
+    def get_images(self, size):
+        "Devuelve las imagenes de tamaño para celulares"
+        return self.images.filter(image_size=size)
+
+    @property
+    def home_image_mobile(self):
+        "Devuelve la imagen para la home modo mobile"
+        images = self.get_images('M')
+        return images[0] if images else None
+
+    @property
+    def home_image_single(self):
+        "Devuelve la imagen para la home modo single"
+        images = self.get_images('S')
+        return images[0] if images else None
 
     def __str__(self):
         return self.name
@@ -38,12 +55,18 @@ class Product(models.Model):
 class ImageProduct(models.Model):
     """Imágen del Producto
     """
+    MOBILE = 'M'
+    SINGLE = 'S'
+    SIZE_CHOICE = ((MOBILE, 'Celular'),
+                   (SINGLE, 'Normal'))
 
     image = models.ImageField(u'imágen', upload_to='uploads/product_image')
     product = models.ForeignKey('Product', related_name='images')
     published = models.BooleanField(default=True, verbose_name=u'publicado')
     position = models.PositiveSmallIntegerField(db_index=True, blank=True, default=0,
                                                 verbose_name=u'posición')
+    image_size = models.CharField(u'tamaño de la imágen', max_length=1,
+                                  choices=SIZE_CHOICE, default=SINGLE)
 
     class Meta:
         verbose_name = u'imágen de producto'

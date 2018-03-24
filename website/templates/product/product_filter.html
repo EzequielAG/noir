@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+<div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
+        
+    <!-- Widget -->
+    <div class="widget">
+        
+        <h5 class="widget-title font-alt">Filtros</h5>
+        
+        <div class="widget-body">
+            <form action="" method="get">
+                
+                <div class="">
+                    <div class="form-group">
+                        {{ filter.form.name|add_class:"form-control"|attr:"placeholder:Producto" }}
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="form-group">
+                        {{ filter.form.category|add_class:"form-control" }}
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="form-group">
+                        {{ filter.form.price|add_class:"form-control" }}
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="form-group">
+                        {{ filter.form.product_gender|add_class:"form-control" }}
+                    </div>
+                </div>
+                
+                <button class="btn btn-mod btn-medium btn-full btn-round" type="submit">
+                    Filtrar <span aria-hidden="true" class="fa fa-filter"></span>
+                </button>
+                
+            </form>
+        </div>
+        
+    </div>
+
+</div>

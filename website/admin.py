@@ -14,12 +14,12 @@ class ProductAdmin(admin.ModelAdmin):
 
     inlines = [ImageProductInline]
     list_display = ('code', 'name', 'description', 'published', 'outstanding', 'price',
-                    'position', 'product_gender')
+                    'position', 'product_gender', 'date')
     list_display_links = ('name', )
     list_filter = ['published', 'outstanding', 'category', 'price']
     search_fields = ['code', 'name']
     list_per_page = 20
-    ordering = ['name']
+    ordering = ['date']
 
 
 class ContactAdmin(admin.ModelAdmin):

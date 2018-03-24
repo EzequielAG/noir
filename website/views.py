@@ -3,15 +3,18 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView
 from django.core.mail.message import EmailMessage
 
-from website.models import ImageBanner, ImageCategoryBanner, Contact
+from django_filters.views import FilterView
+
+from website.models import ImageBanner, ImageCategoryBanner, Contact, Product
 from website.forms import ContactForm
+from website.view_filters import ProductFilter
 
 
 class BannerMixin(object):
     """Herramienta para los banners
     """
 
-    def banners_published(self):
+    def get_banners_published(self):
         "Devuelve las imagenes publicadas ordenadas por la posicion"
         return ImageBanner.objects.filter(published=True).order_by('position')
 
@@ -23,19 +26,20 @@ class BannerMixin(object):
 
         return unique_names
 
-    def get_banners(self, category, name=None):
+    def get_banners(self, place, name=None):
         "Devuelve una lista de banners segun la categoria"
+        category = ImageCategoryBanner.objects.get(place=place)
         banners = []
 
         sizes = ['S', 'M', 'B']
 
         if name is None:
-            names = self.banners_published().filter(category=category)\
-                                            .values_list('name', flat=True)
+            names = self.get_banners_published().filter(category=category)\
+                                                .values_list('name', flat=True)
         else:
-            names = self.banners_published().filter(category=category)\
-                                            .filter(name__istartswith=name)\
-                                            .values_list('name', flat=(True))
+            names = self.get_banners_published().filter(category=category)\
+                                                .filter(name__istartswith=name)\
+                                                .values_list('name', flat=(True))
 
         unique_names = self.get_unique(names)
 
@@ -43,7 +47,8 @@ class BannerMixin(object):
             banner_sizes = {}
             for size in sizes:
                 try:
-                    banner_sizes[size] = self.banners_published().get(name=name, image_size=size)
+                    banner_sizes[size] = self.get_banners_published().get(name=name,
+                                                                          image_size=size)
                 except ImageBanner.DoesNotExist:
                     banner_sizes[size] = None
 
@@ -52,7 +57,23 @@ class BannerMixin(object):
         return banners
 
 
-class HomeView(BannerMixin, CreateView):
+class ProductMixin(object):
+    """Herramienta para los productos
+    """
+
+    def get_product_published(self, attribute):
+        "Devuelve los productos publicados por un orden"
+        return Product.objects.filter(published=True).order_by(attribute)
+
+    def get_product_outstanding(self):
+        "Devuelve los productos destacados"
+        return self.get_product_published('position').filter(outstanding=True)
+
+    # def get_product_category
+    # def get_product_product_gender
+
+
+class HomeView(BannerMixin, ProductMixin, CreateView):
     """Pagina de Inicio
     """
 
@@ -64,9 +85,9 @@ class HomeView(BannerMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
 
-        category = ImageCategoryBanner.objects.get(place="Inicio")
-        context['main_banners'] = self.get_banners(category=category, name='home')
-        context['gender_banners'] = self.get_banners(category=category, name='gender')
+        context['main_banners'] = self.get_banners(place='Inicio', name='home')
+        context['gender_banners'] = self.get_banners(place='Inicio', name='gender')
+        context['product_outstanding'] = self.get_product_outstanding()[:6]
 
         return context
 
@@ -81,3 +102,21 @@ class HomeView(BannerMixin, CreateView):
         email.send()
         # messages.info(self.request, 'La consulta fue enviada con éxito')
         return super(HomeView, self).form_valid(form)
+
+
+class ProductListView(BannerMixin, ProductMixin, FilterView):
+    """Pagina de Productos
+    """
+
+    template_name = 'product/product_list.html'
+    filterset_class = ProductFilter
+    paginate_by = 12
+    queryset = Product.objects.filter(published=True).order_by('date')
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+
+        context['product_banner'] = self.get_banners(place='Productos')[0]
+
+        return context

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<nav class="main-nav js-stick">
+    <div class="full-wrapper relative clearfix">
+
+        <div class="nav-logo-wrap local-scroll">
+            <a href="mp-index.html" class="logo">
+                <img src="{% static "img/logo.png" %}" alt="" />
+            </a>
+        </div>
+
+        <div class="mobile-nav">
+            <i class="fa fa-bars"></i>
+        </div>
+        
+        <div class="inner-nav desktop-nav">
+            <ul class="clearlist scroll-nav local-scroll">
+                <li class="active"><a href="{% url 'home' %}#home">Inicio</a></li>
+                <li><a href="{% url 'home' %}#about">Nosotras</a></li>
+                <li><a href="{% url 'home' %}#services">Productos</a></li>
+                <li><a href="{% url 'home' %}#portfolio">Destacados</a></li>
+                <li><a href="{% url 'home' %}#contact">Contacto</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>

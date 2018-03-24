@@ -1,0 +1,30 @@
+{% load website_tags %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+
+        <a href="?{% add_to_querystring page=page_obj.previous_page_number %}" title="página anterior">
+            <i class="fa fa-angle-left"></i>
+        </a>
+
+        {% for page_number in page_obj.paginator.page_range %}
+            {% if page_obj.number|add:"-1" <= page_number and page_number < page_obj.number %}
+                <a href="?{% add_to_querystring page=page_number %}">{{ page_number }}</a>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+    <a href="#" class="active">{{ page_obj.number }}</a>
+
+    {% if page_obj.has_next %}
+        {% for page_number in page_obj.paginator.page_range %}
+            {% if page_obj.number < page_number and page_number <= page_obj.number|add:"1" %}
+                <a href="?{% add_to_querystring page=page_number %}">{{ page_number }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <a href="?{% add_to_querystring page=page_obj.next_page_number %}" title="página siguiente">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    {% endif %}
+</div>

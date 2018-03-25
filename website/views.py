@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.template.loader import render_to_string
-from django.views.generic.edit import CreateView
+from django.views.generic import CreateView, DetailView
 from django.core.mail.message import EmailMessage
 
 from django_filters.views import FilterView
@@ -61,13 +61,13 @@ class ProductMixin(object):
     """Herramienta para los productos
     """
 
-    def get_product_published(self, attribute):
+    def get_product_published(self, attribute='position'):
         "Devuelve los productos publicados por un orden"
         return Product.objects.filter(published=True).order_by(attribute)
 
     def get_product_outstanding(self):
         "Devuelve los productos destacados"
-        return self.get_product_published('position').filter(outstanding=True)
+        return self.get_product_published().filter(outstanding=True)
 
     # def get_product_category
     # def get_product_product_gender
@@ -120,3 +120,19 @@ class ProductListView(BannerMixin, ProductMixin, FilterView):
         context['product_banner'] = self.get_banners(place='Productos')[0]
 
         return context
+
+
+class ProductDetailView(ProductMixin, DetailView):
+    """Pagina de Detalle de un Producto
+    """
+
+    template_name = 'product/product_detail.html'
+    model = Product
+    context_object_name = 'product'
+
+    def get_queryset(self):
+        queryset = super(ProductDetailView, self).get_queryset()
+
+        queryset = self.get_product_published()
+
+        return queryset

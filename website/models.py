@@ -28,7 +28,7 @@ class Product(models.Model):
     date = models.DateTimeField(u'fecha y hora', auto_now=True)
 
     def get_images(self, size):
-        "Devuelve las imagenes de tamaño para celulares"
+        "Devuelve las imagenes recibiendo un tamaño"
         return self.images.filter(image_size=size)
 
     @property

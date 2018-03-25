@@ -1,4 +1,5 @@
 {% if gender_banners %}
+    <div id="products">
     {% for gender_banner in gender_banners %}
         <!-- Section -->
         <section class="page-section fixed-height-small pt-0 pb-0 bg-dark-alfa-30" data-background="{{ gender_banner.M.image.url }}">
@@ -28,4 +29,5 @@
         </section>
         <!-- End Section -->
     {% endfor %}
+    </div>
 {% endif %}

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from website.views import HomeView, ProductListView
+from website.views import HomeView, ProductListView, ProductDetailView
 
 urlpatterns = [
 
@@ -11,4 +11,6 @@ urlpatterns = [
     # Productos
     url(r'^productos$', ProductListView.as_view(),
         name='products'),
+    url(r'^producto/(?P<pk>\d+)$', ProductDetailView.as_view(),
+        name='product_detail')
 ]

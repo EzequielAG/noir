@@ -1,0 +1,16 @@
+{% extends "layout/layout.html" %}
+{% load staticfiles %}
+{% block page_title %}{{ product.name }}{% endblock %}
+
+{% block site_header %}
+    {% include "product/header.html" %}
+{% endblock site_header %}
+
+{% block site_content %}
+
+    {% include "product/product_banner.html" %}
+    <hr class="mt-0 mb-0 "/>
+    {% include "product/product_detail_content.html" %}
+    <hr class="mt-0 mb-0 "/>
+
+{% endblock site_content %}

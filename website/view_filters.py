@@ -1,4 +1,4 @@
-from django_filters import FilterSet, CharFilter, ModelChoiceFilter, ChoiceFilter
+from django_filters import FilterSet, CharFilter, ModelChoiceFilter, ChoiceFilter, OrderingFilter
 
 from website.models import Product, CategoryProduct
 
@@ -13,6 +13,23 @@ class ProductFilter(FilterSet):
     price = ChoiceFilter(choices=[(u'$', u'$100'), (u'$$', u'$200'), (u'$$$', u'$300')],
                          method='filter_price', empty_label=u'Cualquier precio')
     product_gender = ChoiceFilter(choices=Product.SEX_CHOICE, empty_label=u'Todos los generos')
+
+    order = OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('name', 'name'),
+            ('price', 'price'),
+            ('date', 'date'),
+        ),
+        choices=(
+            ('name', 'Nombre >'),
+            ('-name', 'Nombre <'),
+            ('price', 'Precio <'),
+            ('-price', 'Precio >'),
+            ('date', 'Fecha <'),
+            ('-date', 'Fecha >'),
+        ),
+    )
 
     def filter_price(self, queryset, name, value):
 

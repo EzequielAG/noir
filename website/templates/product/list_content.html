@@ -1,19 +1,14 @@
+{% load widget_tweaks %}
 <div class="col-sm-8">
     
     <!-- Shop options -->
     <div class="clearfix mb-40">
-        
-        <div class="left section-text mt-10">
-            Showing 1–12 of 23 results
-        </div>
-        
+                
         <div class="right">
-            <form method="post" action="#" class="form">
-                <select class="input-md round">
-                    <option>Default sorting</option>
-                    <option>Sort by price: low to high</option>
-                    <option>Sort by price: high to low</option>
-                </select>
+            <form method="get" class="form">
+                <button class="" type="submit" style="padding:0px; border:0px;">
+                    {{ filter.form.order|add_class:"form-control input-sm" }}
+                </button>
             </form>
         </div>
         

@@ -43,6 +43,14 @@ class Product(models.Model):
         images = self.get_images('S')
         return images[0] if images else None
 
+    @property
+    def for_sale(self):
+        "Devuelve verdadero si esta en oferta"
+        if self.category.filter(name='Promocion'):
+            return True
+        else:
+            return False
+
     def __str__(self):
         return self.name
 

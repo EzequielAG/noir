@@ -122,7 +122,7 @@ class ProductListView(BannerMixin, ProductMixin, FilterView):
         return context
 
 
-class ProductDetailView(ProductMixin, DetailView):
+class ProductDetailView(BannerMixin, ProductMixin, DetailView):
     """Pagina de Detalle de un Producto
     """
 
@@ -130,9 +130,47 @@ class ProductDetailView(ProductMixin, DetailView):
     model = Product
     context_object_name = 'product'
 
+    def get_main_product_category(self):
+        "Devuelve la categoria más representativa del premio"
+
+        try:
+            main_category = self.object.category.order_by('-pk')[0]
+        except IndexError:
+            main_category = None
+
+        return main_category
+
+    def get_related_products(self):
+        "Devuelve que queryset con los premios realcionados"
+        visible_products = self.get_product_published()
+
+        product_category = self.get_main_product_category()
+
+        related_products = visible_products.exclude(pk=self.object.pk)
+
+        if product_category:
+            related_products = related_products.filter(category=product_category)
+
+        return related_products
+
     def get_queryset(self):
         queryset = super(ProductDetailView, self).get_queryset()
 
         queryset = self.get_product_published()
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+
+        product = self.object
+
+        context['product_banner'] = self.get_banners(place='Productos', name='product_detalle')[0]
+
+        context['product_med_images'] = product.get_images('S')
+
+        context['product_categories'] = product.category.all()
+
+        context['related_products'] = self.get_related_products()[:4]
+
+        return context

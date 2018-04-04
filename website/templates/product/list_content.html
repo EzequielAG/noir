@@ -25,16 +25,18 @@
                 
                 <div class="post-prev-img">
                     
-                    <a href="shop-single.html"><img src="{{ product.home_image_single.image.url }}" alt="" /></a>
+                    <a href="{% url 'product_detail' pk=product.pk %}"><img src="{{ product.home_image_single.image.url }}" alt="" /></a>
                     
-                    <div class="intro-label">
-                        <span class="label label-danger bg-red">Sale</span>
-                    </div>
+                    {% if product.for_sale %}
+                        <div class="intro-label">
+                            <span class="label label-danger bg-red">Promocion</span>
+                        </div>
+                    {% endif %}
                     
                 </div>
                 
                 <div class="post-prev-title font-alt align-center">
-                    <a href="#">{{ product.name }}</a>
+                    <a href="{% url 'product_detail' pk=product.pk %}">{{ product.name }}</a>
                 </div>
 
                 <div class="post-prev-text align-center">
@@ -44,7 +46,7 @@
                 </div>
                 
                 <div class="post-prev-more align-center">
-                    <a href="#" class="btn btn-mod btn-gray btn-round"><i class="fa fa-shopping-cart"></i> Mas detalle </a>
+                    <a href="{% url 'product_detail' pk=product.pk %}" class="btn btn-mod btn-gray btn-round"><i class="fa fa-shopping-cart"></i> Mas detalle </a>
                 </div>
                 
             </div>

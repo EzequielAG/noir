@@ -1,0 +1,55 @@
+<!-- Related Products -->
+{% if related_products %}
+    <section class="page-section">
+        <div class="container relative">
+            
+            <h2 class="section-title font-alt mb-70 mb-sm-40">
+                Otros Productos
+            </h2>
+            
+            <!-- Products Grid -->
+            <div class="row multi-columns-row">
+
+            {% for product in related_products %}
+        
+                <!-- Shop Item -->
+                <div class="col-md-3 col-lg-3 mb-60 mb-xs-40">
+                    
+                    <div class="post-prev-img">
+                        
+                        <a href="{% url 'product_detail' pk=product.pk %}"><img src="{{ product.home_image_single.image.url }}" alt="" /></a>
+
+                        {% if product.for_sale %}
+                            <div class="intro-label">
+                                <span class="label label-danger bg-red">Promocion</span>
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                    
+                    <div class="post-prev-title font-alt align-center">
+                        <a href="{% url 'product_detail' pk=product.pk %}">{{ product.name }}</a>
+                    </div>
+
+                    <div class="post-prev-text align-center">
+                        <del>$150.00</del>
+                        &nbsp;
+                        <strong>{{ product.price }}</strong>
+                    </div>
+                    
+                    <div class="post-prev-more align-center">
+                        <a href="{% url 'product_detail' pk=product.pk %}" class="btn btn-mod btn-gray btn-round"><i class="fa fa-shopping-cart"></i> Mas detalle </a>
+                    </div>
+                    
+                </div>
+                <!-- End Shop Item -->
+                
+            {% endfor %}
+
+            </div>
+            <!-- End Products Grid -->
+            
+        </div>
+    </section>
+    <!-- End Related Products -->
+{% endif %}

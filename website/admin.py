@@ -13,11 +13,11 @@ class ImageProductInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
 
     inlines = [ImageProductInline]
-    list_display = ('code', 'name', 'description', 'published', 'outstanding', 'price',
+    list_display = ('name', 'description', 'published', 'outstanding', 'price',
                     'position', 'product_gender', 'date')
     list_display_links = ('name', )
     list_filter = ['published', 'outstanding', 'category', 'price']
-    search_fields = ['code', 'name']
+    search_fields = ['name']
     list_per_page = 20
     ordering = ['date']
 

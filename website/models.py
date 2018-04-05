@@ -14,7 +14,7 @@ class Product(models.Model):
                   (HOMBRE, 'Hombre'),
                   (UNISEX, 'Unisex'))
 
-    code = models.CharField(u'código', max_length=255, unique=True, null=True, blank=True)
+    # code = models.CharField(u'código', max_length=255, unique=True, null=True, blank=True)
     name = models.CharField(u'nombre', max_length=255)
     description = models.TextField(u'descripción')
     published = models.BooleanField(default=True, verbose_name=u'publicado')

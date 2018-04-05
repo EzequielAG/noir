@@ -13,7 +13,7 @@
             
                 <!-- Work Item (Lightbox) -->
                 <li class="work-item mix photography">
-                    <a href="{{ product.home_image_single.image.url }}" class="work-lightbox-link mfp-image">
+                    <a href="{% url 'product_detail' pk=product.pk %}">
                         <div class="work-img">
                             <img src="{{ product.home_image_mobile.image.url }}" alt="Work" />
                         </div>

@@ -87,6 +87,8 @@ class HomeView(BannerMixin, ProductMixin, CreateView):
 
         context['main_banners'] = self.get_banners(place='Inicio', name='home')
         context['gender_banners'] = self.get_banners(place='Inicio', name='gender')
+        context['testimonials_banners'] = self.get_banners(place='Inicio', name='testimonial')
+        context['testimonial_background'] = self.get_banners(place='Inicio', name='testimonial')[0]
         context['product_outstanding'] = self.get_product_outstanding()[:6]
 
         return context

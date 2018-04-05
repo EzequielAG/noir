@@ -121,7 +121,8 @@ class ProductListView(BannerMixin, ProductMixin, FilterView):
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
 
-        context['product_banner'] = self.get_banners(place='Productos')[0]
+        context['product_banner'] = self.get_banners(place='Productos') and \
+                                    self.get_banners(place='Productos')[0]
 
         return context
 

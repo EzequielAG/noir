@@ -170,7 +170,8 @@ class ProductDetailView(BannerMixin, ProductMixin, DetailView):
 
         product = self.object
 
-        context['product_banner'] = self.get_banners(place='Productos', name='product_detalle')[0]
+        context['product_banner'] = self.get_banners(place='Productos', name='product_detalle') \
+                                    and self.get_banners(place='Productos', name='product_detalle')[0]
 
         context['product_med_images'] = product.get_images('S')
 

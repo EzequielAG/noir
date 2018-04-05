@@ -7,4 +7,4 @@ from website.models import Contact
 class ContactForm(ModelForm):
     class Meta:
         model = Contact
-        fields = ('name', 'mail', 'cell_phone', 'message')
+        fields = ('name', 'mail', 'cell_phone', 'message', 'read')

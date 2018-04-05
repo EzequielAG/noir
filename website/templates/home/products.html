@@ -15,7 +15,11 @@
                 <li class="work-item mix photography">
                     <a href="{% url 'product_detail' pk=product.pk %}">
                         <div class="work-img">
+                        {% if product.home_image_mobile %}
                             <img src="{{ product.home_image_mobile.image.url }}" alt="Work" />
+                        {% else %}
+                            <img src="{{ product.home_image_single.image.url }}" alt="Work" />
+                        {% endif %}
                         </div>
                         <div class="work-intro">
                             <h3 class="work-title">{{ product.name }}</h3>
